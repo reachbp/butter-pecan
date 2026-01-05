@@ -3,5 +3,6 @@
  */
 
 export { DashboardScreen } from './DashboardScreen';
+export { ApplicationDetailScreen } from './ApplicationDetailScreen';
 
-export default { DashboardScreen };
+export default { DashboardScreen, ApplicationDetailScreen };
