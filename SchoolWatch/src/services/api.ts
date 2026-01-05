@@ -4,6 +4,11 @@
  */
 
 import { School } from '../types/onboarding';
+import {
+  Application,
+  CreateApplicationDTO,
+  UpdateApplicationDTO,
+} from '../types/application';
 
 const API_BASE_URL = __DEV__
   ? 'http://localhost:3000/api'
@@ -88,6 +93,83 @@ export const schoolsApi = {
   },
 };
 
+/**
+ * Application API
+ */
+export const applicationsApi = {
+  /**
+   * Get all applications for current user
+   */
+  getAll: async (): Promise<{ success: boolean; count: number; applications: Application[] }> => {
+    return apiFetch<{ success: boolean; count: number; applications: Application[] }>('/applications');
+  },
+
+  /**
+   * Get applications by status
+   */
+  getByStatus: async (status: string): Promise<{ success: boolean; applications: Application[] }> => {
+    return apiFetch<{ success: boolean; applications: Application[] }>(`/applications?status=${status}`);
+  },
+
+  /**
+   * Get application by ID
+   */
+  getById: async (id: string): Promise<{ success: boolean; application: Application }> => {
+    return apiFetch<{ success: boolean; application: Application }>(`/applications/${id}`);
+  },
+
+  /**
+   * Create new application
+   */
+  create: async (data: CreateApplicationDTO): Promise<{ success: boolean; application: Application }> => {
+    return apiFetch<{ success: boolean; application: Application }>('/applications', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+
+  /**
+   * Update application
+   */
+  update: async (id: string, data: UpdateApplicationDTO): Promise<{ success: boolean; application: Application }> => {
+    return apiFetch<{ success: boolean; application: Application }>(`/applications/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  },
+
+  /**
+   * Delete application
+   */
+  delete: async (id: string): Promise<{ success: boolean }> => {
+    return apiFetch<{ success: boolean }>(`/applications/${id}`, {
+      method: 'DELETE',
+    });
+  },
+
+  /**
+   * Get application statistics
+   */
+  getStats: async (): Promise<{
+    success: boolean;
+    stats: { total: number; byStatus: Record<string, number> };
+  }> => {
+    return apiFetch('/applications/stats');
+  },
+
+  /**
+   * Get upcoming deadlines
+   */
+  getDeadlines: async (days: number = 7): Promise<{
+    success: boolean;
+    count: number;
+    applications: Application[];
+  }> => {
+    return apiFetch(`/applications/deadlines?days=${days}`);
+  },
+};
+
 export default {
   schools: schoolsApi,
+  applications: applicationsApi,
 };
