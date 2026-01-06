@@ -7,6 +7,7 @@ import { config } from './config';
 import routes from './routes';
 import { errorHandler } from './middleware/errorHandler';
 import { setupSocketIO } from './services/socketService';
+import { reminderService } from './services/reminderService';
 
 // Load environment variables
 dotenv.config();
@@ -48,6 +49,9 @@ app.use(errorHandler);
 
 // Setup Socket.IO
 setupSocketIO(io);
+
+// Start reminder service (checks every 5 minutes)
+reminderService.start(5);
 
 // Start server
 const PORT = config.port;

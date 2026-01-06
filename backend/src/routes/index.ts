@@ -3,6 +3,7 @@ import schoolRoutes from './schoolRoutes';
 import applicationRoutes from './applicationRoutes';
 import analyticsRoutes from './analyticsRoutes';
 import userRoutes from './userRoutes';
+import reminderRoutes from './reminderRoutes';
 
 const router = Router();
 
@@ -17,6 +18,7 @@ router.get('/', (req, res) => {
       applications: '/api/applications',
       analytics: '/api/analytics',
       users: '/api/users',
+      reminders: '/api/reminders',
     },
   });
 });
@@ -26,5 +28,6 @@ router.use('/schools', schoolRoutes);
 router.use('/applications', applicationRoutes);
 router.use('/analytics', analyticsRoutes);
 router.use('/users', userRoutes);
+router.use('/reminders', reminderRoutes);
 
 export default router;
