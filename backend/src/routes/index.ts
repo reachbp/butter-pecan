@@ -4,6 +4,7 @@ import applicationRoutes from './applicationRoutes';
 import analyticsRoutes from './analyticsRoutes';
 import userRoutes from './userRoutes';
 import reminderRoutes from './reminderRoutes';
+import communityDataRoutes from './communityDataRoutes';
 
 const router = Router();
 
@@ -19,6 +20,7 @@ router.get('/', (req, res) => {
       analytics: '/api/analytics',
       users: '/api/users',
       reminders: '/api/reminders',
+      community: '/api/community',
     },
   });
 });
@@ -29,5 +31,6 @@ router.use('/applications', applicationRoutes);
 router.use('/analytics', analyticsRoutes);
 router.use('/users', userRoutes);
 router.use('/reminders', reminderRoutes);
+router.use('/community', communityDataRoutes);
 
 export default router;
